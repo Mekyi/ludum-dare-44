@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class Player : MonoBehaviour
 {
@@ -13,9 +14,10 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject energyText;
     [SerializeField] float energyLevel = 100f;
     [SerializeField] float passiveEnergyDrain = 1f;
-    [SerializeField] float energyDrainInterval = 10f;
+    [SerializeField] float energyDrainInterval = 1f;
 
     public bool isMovable = true;
+    public bool isAlive = true;
 
     private Rigidbody2D rb;
     Vector2 direction = new Vector2(0, 0);
@@ -30,7 +32,12 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckEnergy();
         GetInput();
+    }
+
+    private void CheckEnergy()
+    {
     }
 
     void FixedUpdate()
@@ -69,6 +76,15 @@ public class Player : MonoBehaviour
     IEnumerator DrainEnergy()
     {
         yield return new WaitForSeconds(energyDrainInterval);
-        DecreaseEnergy(1f);
+        if (isAlive)
+        {
+            DecreaseEnergy(passiveEnergyDrain);
+            StartCoroutine(DrainEnergy());
+        }
+    }
+
+    public float GetEnergy()
+    {
+        return energyLevel;
     }
 }
