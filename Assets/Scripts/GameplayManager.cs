@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GameplayManager : MonoBehaviour
 {
     [SerializeField] float gameLength = 600f;
-    [SerializeField] Slider timeSlider;
+    [SerializeField] RectTransform timeSlider;
 
     public float gameTime = 0;
 
@@ -16,8 +16,7 @@ public class GameplayManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timeSlider.maxValue = gameLength;
-
+        timeSlider.localScale = new Vector3(gameTime /gameLength, 1, 1);
     }
 
     // Update is called once per frame
@@ -26,7 +25,7 @@ public class GameplayManager : MonoBehaviour
         if (!isGameOver)
         {
             gameTime += Time.deltaTime;
-            timeSlider.value = gameTime;
+            timeSlider.localScale = new Vector3(gameTime / gameLength, 1, 1);
             CheckForCompletion();
         }
     }
