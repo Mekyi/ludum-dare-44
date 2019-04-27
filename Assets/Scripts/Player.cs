@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
 
     public void IncreaseEnergy(float energy)
     {
-        energy += energy;
+        energyLevel += energy;
     }
 
     IEnumerator DrainEnergy()

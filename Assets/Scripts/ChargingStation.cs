@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ChargingStation : MonoBehaviour
 {
@@ -9,21 +10,30 @@ public class ChargingStation : MonoBehaviour
     [SerializeField] float energyTransferSpeed = 10;
     [SerializeField] float energyRegen = 1;
 
-    BoxCollider2D collider;
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject valueComponent;
+
+    private CapsuleCollider2D collider;
+    private TextMeshPro chargeText;
 
     // Start is called before the first frame update
     void Start()
     {
-        collider = gameObject.GetComponent<BoxCollider2D>();
+        collider = gameObject.GetComponent<CapsuleCollider2D>();
+        chargeText = valueComponent.GetComponent<TextMeshPro>();
     }
 
     // Update is called once per frame
     void Update()
     {
         energy += energyRegen * Time.deltaTime;
-        if (collider.IsTouchingLayers(LayerMask.GetMask("Player")))
+        energy = Mathf.Clamp(energy, 0f, 100f);
+        chargeText.text = Mathf.Round(energy).ToString() + "%";
+        if (collider.IsTouchingLayers(LayerMask.GetMask("Player"))
+            && player.GetComponent<Player>().GetEnergy() < 100f)
         {
-
+            energy -= Time.deltaTime * energyTransferSpeed;
+            player.GetComponent<Player>().IncreaseEnergy(Time.deltaTime * energyTransferSpeed);
         }
     }
 }

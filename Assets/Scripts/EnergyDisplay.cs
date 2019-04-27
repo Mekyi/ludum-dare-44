@@ -17,6 +17,6 @@ public class EnergyDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        energyText.text = player.GetComponent<Player>().GetEnergy().ToString() + "%";
+        energyText.text = Mathf.Round(player.GetComponent<Player>().GetEnergy()).ToString() + "%";
     }
 }
