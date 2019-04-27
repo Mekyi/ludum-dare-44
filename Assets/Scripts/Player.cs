@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 
     // Energy
     [SerializeField] GameObject energyText;
+    [SerializeField] float maxEnergy = 100f;
     [SerializeField] float energyLevel = 100f;
     [SerializeField] float passiveEnergyDrain = 1f;
     [SerializeField] float energyDrainInterval = 1f;
@@ -38,6 +39,12 @@ public class Player : MonoBehaviour
 
     private void CheckEnergy()
     {
+        energyLevel = Mathf.Clamp(energyLevel, 0f, maxEnergy);
+        if (GetEnergy() <= 0)
+        {
+            isMovable = false;
+            isAlive = false;
+        }
     }
 
     void FixedUpdate()
@@ -46,6 +53,10 @@ public class Player : MonoBehaviour
         if (isMovable)
         {
             rb.velocity = new Vector2(direction.x * horizontalSpeed * Time.deltaTime, direction.y * verticalSpeed * Time.deltaTime);
+        }
+        else
+        {
+            rb.velocity = new Vector2(0f, 0f);
         }
     }
 
@@ -71,6 +82,11 @@ public class Player : MonoBehaviour
     public void DecreaseEnergy(float energy)
     {
         energyLevel -= energy;
+    }
+
+    public void IncreaseEnergy(float energy)
+    {
+        energy += energy;
     }
 
     IEnumerator DrainEnergy()
