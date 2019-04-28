@@ -10,12 +10,11 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] RectTransform timeSlider;
     [SerializeField] RectTransform shipIcon;
 
-    // Random events
-    [SerializeField] float randomEventInterval = 20f;
-    [SerializeField] float randomEventChancePerSecond = 0.1f;
-
+    // Alerts
     [SerializeField] float cryoCriticalAlertSensitivity = 8f;
     [SerializeField] GameObject cryoCriticalIndicator;
+    [SerializeField] GameObject courseCriticalIndicator;
+
     [SerializeField] GameObject[] cryopods;
     [SerializeField] GameObject minimapCamera;
     [SerializeField] GameObject uiCanvas;
@@ -25,6 +24,7 @@ public class GameplayManager : MonoBehaviour
 
 
     public float gameTime = 0;
+    
 
     // Game events
     public bool fixCourse = false;
@@ -33,8 +33,8 @@ public class GameplayManager : MonoBehaviour
     public bool cryoCriticalState = false;
 
     public bool isGameOver = false; // Either win or lose
-    private bool isMapToggled = false;
     public bool isPauseToggled = false;
+    private bool isMapToggled = false;
 
     // Start is called before the first frame update
     void Start()
@@ -79,7 +79,6 @@ public class GameplayManager : MonoBehaviour
         Time.timeScale = 1;
         FindObjectOfType<GameplayManager>().isPauseToggled = false;
     }
-
 
     private void ToggleMap()
     {
@@ -130,14 +129,7 @@ public class GameplayManager : MonoBehaviour
     {
         CheckForCompletion();
         CheckCryoStates();
-        if (cryoCriticalState)
-        {
-            cryoCriticalIndicator.SetActive(true);
-        }
-        else
-        {
-            cryoCriticalIndicator.SetActive(false);
-        }
+        CheckCourseState();
         yield return new WaitForSeconds(1f);
         if (!isGameOver)
         {
@@ -145,8 +137,21 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
+    private void CheckCourseState()
+    {
+        if (fixCourse)
+        {
+            courseCriticalIndicator.SetActive(true);
+        }
+        else
+        {
+            courseCriticalIndicator.SetActive(false);
+        }
+    }
+
     private void CheckCryoStates()
     {
+        // Check
         foreach (GameObject cryopod in cryopods)
         {
             if (cryopod.GetComponent<CryopodControls>().currentCharge 
@@ -159,6 +164,16 @@ public class GameplayManager : MonoBehaviour
             {
                 cryoCriticalState = false;
             }
+        }
+
+        // Handle
+        if (cryoCriticalState)
+        {
+            cryoCriticalIndicator.SetActive(true);
+        }
+        else
+        {
+            cryoCriticalIndicator.SetActive(false);
         }
     }
 

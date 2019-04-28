@@ -9,6 +9,8 @@ public class ShipControlSystem : MonoBehaviour
     [SerializeField] GameObject gameplayManager;
     [SerializeField] GameObject player;
     [SerializeField] GameObject guideText;
+    [SerializeField] float randomEventChance = 0.05f;
+    [SerializeField] float diceRollInterval = 1f;
 
     public bool isRandomEvent;
     private BoxCollider2D triggerArea;
@@ -18,6 +20,7 @@ public class ShipControlSystem : MonoBehaviour
     {
         guideText.SetActive(false);
         triggerArea = gameObject.GetComponent<BoxCollider2D>();
+        StartCoroutine(RollForEvent());
     }
 
     // Update is called once per frame
@@ -43,6 +46,22 @@ public class ShipControlSystem : MonoBehaviour
             guideText.SetActive(false);
         }
 
+        HandleRandomEvents();
+
+    }
+
+    private void HandleRandomEvents()
+    {
+    }
+
+    IEnumerator RollForEvent()
+    {
+        yield return new WaitForSeconds(diceRollInterval);
+        if (randomEventChance > UnityEngine.Random.value)
+        {
+            gameplayManager.GetComponent<GameplayManager>().fixCourse = true;
+        }
+        StartCoroutine(RollForEvent());
     }
 
     private void CheckForEvent()
