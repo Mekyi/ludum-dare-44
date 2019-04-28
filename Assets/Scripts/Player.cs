@@ -51,6 +51,14 @@ public class Player : MonoBehaviour
             anim.SetTrigger("DeathAnimation");
             gameplayManager.GetComponent<GameplayManager>().StartGameLostEvent();
         }
+        else if (GetEnergy() < 30)
+        {
+            gameplayManager.GetComponent<GameplayManager>().isCriticalEnergy = true;
+        }
+        else
+        {
+            gameplayManager.GetComponent<GameplayManager>().isCriticalEnergy = false;
+        }
     }
 
     void FixedUpdate()

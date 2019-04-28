@@ -12,6 +12,7 @@ public class CryopodControls : MonoBehaviour
     [SerializeField] GameObject guideTexts;
     [SerializeField] GameObject player;
     [SerializeField] GameObject uiTimer;
+    [SerializeField] GameObject alertIndicator;
 
     public float currentCharge;
     private RectTransform timeBar;
@@ -32,10 +33,11 @@ public class CryopodControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckForAlerts();
         if (currentCharge >= 0)
         {
             currentCharge -= Time.deltaTime * energyDrainSpeed;
-            timeBar.localScale = new Vector3 (
+            timeBar.localScale = new Vector3(
                 currentCharge / fullCharge, 1, 1);
             UIBarUpdate();
         }
@@ -44,7 +46,24 @@ public class CryopodControls : MonoBehaviour
             isAlive = false;
         }
 
-        if (triggerArea.IsTouchingLayers(LayerMask.GetMask("Player") ) && isAlive)
+        CheckPlayerContact();
+    }
+
+    private void CheckForAlerts()
+    {
+        if (currentCharge <= 8f)
+        {
+            alertIndicator.SetActive(true);
+        }
+        else
+        {
+            alertIndicator.SetActive(false);
+        }
+    }
+
+    private void CheckPlayerContact()
+    {
+        if (triggerArea.IsTouchingLayers(LayerMask.GetMask("Player")) && isAlive)
         {
             guideTexts.SetActive(true);
             if (Input.GetButton("Interact") && player.GetComponent<Player>().isAlive)

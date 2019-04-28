@@ -14,6 +14,9 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] float cryoCriticalAlertSensitivity = 8f;
     [SerializeField] GameObject cryoCriticalIndicator;
     [SerializeField] GameObject courseCriticalIndicator;
+    [SerializeField] GameObject leftEngineCriticalIndicator;
+    [SerializeField] GameObject rightEngineCriticalIndicator;
+    [SerializeField] GameObject energyCriticalIndicator;
 
     [SerializeField] GameObject[] cryopods;
     [SerializeField] GameObject minimapCamera;
@@ -32,6 +35,8 @@ public class GameplayManager : MonoBehaviour
     public bool fixRightEngine = false;
     public bool cryoCriticalState = false;
 
+    public bool isCriticalEnergy = false;
+    
     public bool isGameOver = false; // Either win or lose
     public bool isPauseToggled = false;
     private bool isMapToggled = false;
@@ -130,11 +135,52 @@ public class GameplayManager : MonoBehaviour
         CheckForCompletion();
         CheckCryoStates();
         CheckCourseState();
+        CheckLeftEngineState();
+        CheckRightEngineState();
+        CheckEnergyState();
+
         yield return new WaitForSeconds(1f);
         if (!isGameOver)
         {
             StartCoroutine(CheckForEvents());
         }
+    }
+
+    private void CheckEnergyState()
+    {
+        if (isCriticalEnergy)
+        {
+            energyCriticalIndicator.SetActive(true);
+        }
+        else
+        {
+            energyCriticalIndicator.SetActive(false);
+        }
+    }
+
+    private void CheckLeftEngineState()
+    {
+        if (fixLeftEngine)
+        {
+            leftEngineCriticalIndicator.SetActive(true);
+        }
+        else
+        {
+            leftEngineCriticalIndicator.SetActive(false);
+        }
+    }
+
+    private void CheckRightEngineState()
+    {
+        if (fixRightEngine)
+        {
+            rightEngineCriticalIndicator.SetActive(true);
+        }
+        else
+        {
+            rightEngineCriticalIndicator.SetActive(false);
+        }
+
     }
 
     private void CheckCourseState()

@@ -12,6 +12,10 @@ public class ShipControlSystem : MonoBehaviour
     [SerializeField] float randomEventChance = 0.05f;
     [SerializeField] float diceRollInterval = 1f;
 
+    [SerializeField] bool isControlPanel = false;
+    [SerializeField] bool isLeftEngine = false;
+    [SerializeField] bool isRightEngine = false;
+
     public bool isRandomEvent;
     private BoxCollider2D triggerArea;
 
@@ -36,7 +40,19 @@ public class ShipControlSystem : MonoBehaviour
                 guideText.SetActive(true);
                 if (Input.GetButton("Interact") && player.GetComponent<Player>().isAlive)
                 {
-                    gameplayManager.GetComponent<GameplayManager>().fixCourse = false;
+                    if (isControlPanel)
+                    {
+                        gameplayManager.GetComponent<GameplayManager>().fixCourse = false;
+                    }
+                    else if (isLeftEngine)
+                    {
+                        gameplayManager.GetComponent<GameplayManager>().fixLeftEngine = false;
+                    }
+                    else if (isRightEngine)
+                    {
+                        gameplayManager.GetComponent<GameplayManager>().fixRightEngine = false;
+                    }
+
                     guideText.SetActive(false);
                 }
             }
@@ -59,13 +75,35 @@ public class ShipControlSystem : MonoBehaviour
         yield return new WaitForSeconds(diceRollInterval);
         if (randomEventChance > UnityEngine.Random.value)
         {
-            gameplayManager.GetComponent<GameplayManager>().fixCourse = true;
+            if (isControlPanel)
+            {
+                gameplayManager.GetComponent<GameplayManager>().fixCourse = true;
+            }
+            else if (isLeftEngine)
+            {
+                gameplayManager.GetComponent<GameplayManager>().fixLeftEngine = true;
+            }
+            else if (isRightEngine)
+            {
+                gameplayManager.GetComponent<GameplayManager>().fixRightEngine = true;
+            }
         }
         StartCoroutine(RollForEvent());
     }
 
     private void CheckForEvent()
     {
-        isRandomEvent = gameplayManager.GetComponent<GameplayManager>().fixCourse;
+        if (isControlPanel)
+        {
+            isRandomEvent = gameplayManager.GetComponent<GameplayManager>().fixCourse;
+        }
+        else if (isLeftEngine)
+        {
+            isRandomEvent = gameplayManager.GetComponent<GameplayManager>().fixLeftEngine;
+        }
+        else if (isRightEngine)
+        {
+            isRandomEvent = gameplayManager.GetComponent<GameplayManager>().fixRightEngine;
+        }
     }
 }

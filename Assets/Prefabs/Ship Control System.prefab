@@ -627,6 +627,9 @@ MonoBehaviour:
   guideText: {fileID: 7204303464183746661}
   randomEventChance: 0.025
   diceRollInterval: 1
+  isControlPanel: 0
+  isLeftEngine: 0
+  isRightEngine: 0
   isRandomEvent: 0
 --- !u!61 &7204303465688430383
 BoxCollider2D:
