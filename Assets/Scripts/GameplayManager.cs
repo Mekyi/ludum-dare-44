@@ -8,15 +8,40 @@ public class GameplayManager : MonoBehaviour
 {
     [SerializeField] float gameLength = 600f;
     [SerializeField] RectTransform timeSlider;
+    [SerializeField] RectTransform shipIcon;
+
+    // Random events
+    [SerializeField] float randomEventInterval = 20f;
+    [SerializeField] float randomEventChancePerSecond = 0.1f;
+
+    [SerializeField] float cryoCriticalAlertSensitivity = 8f;
+    [SerializeField] GameObject cryoCriticalIndicator;
+    [SerializeField] GameObject[] cryopods;
+    [SerializeField] GameObject minimapCamera;
+    [SerializeField] GameObject uiCanvas;
+    [SerializeField] GameObject pauseCanvas;
+    [SerializeField] GameObject gameOverCanvas;
+    [SerializeField] GameObject gameWonCanvas;
+
 
     public float gameTime = 0;
 
+    // Game events
+    public bool fixCourse = false;
+    public bool fixLeftEngine = false;
+    public bool fixRightEngine = false;
+    public bool cryoCriticalState = false;
+
     public bool isGameOver = false; // Either win or lose
+    private bool isMapToggled = false;
+    public bool isPauseToggled = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         timeSlider.localScale = new Vector3(gameTime /gameLength, 1, 1);
+        StartCoroutine(CheckForEvents());
     }
 
     // Update is called once per frame
@@ -24,10 +49,72 @@ public class GameplayManager : MonoBehaviour
     {
         if (!isGameOver)
         {
-            gameTime += Time.deltaTime;
-            timeSlider.localScale = new Vector3(gameTime / gameLength, 1, 1);
+            Timer();
+            ToggleMap();
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                TogglePauseMenu();
+            }
             CheckForCompletion();
         }
+    }
+
+    public void TogglePauseMenu()
+    {
+        isPauseToggled = !isPauseToggled;
+        if (isPauseToggled == true)
+        {
+            pauseCanvas.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            pauseCanvas.SetActive(false);
+            Time.timeScale = 1;
+        }
+    }
+
+    public void UnpauseGameWithButton()
+    {
+        Time.timeScale = 1;
+        FindObjectOfType<GameplayManager>().isPauseToggled = false;
+    }
+
+
+    private void ToggleMap()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            isMapToggled = !isMapToggled;
+            if (isMapToggled == true)
+            {
+                minimapCamera.SetActive(true);
+                uiCanvas.SetActive(false);
+                Time.timeScale = 0;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                minimapCamera.SetActive(false);
+                uiCanvas.SetActive(true);
+            }
+
+        }
+    }
+
+    private void Timer()
+    {
+        if (!fixCourse)
+        {
+            gameTime += Time.deltaTime;
+        }
+        else
+        {
+            gameTime -= Time.deltaTime;
+        }
+        gameTime = Mathf.Clamp(gameTime, 0f, gameLength);
+        timeSlider.localScale = new Vector3 (gameTime / gameLength, 1, 1);
+        // shipIcon.transform.position = new Vector2 (timeSlider.right.x, 0);
     }
 
     private void CheckForCompletion()
@@ -35,6 +122,59 @@ public class GameplayManager : MonoBehaviour
         if (gameTime >= gameLength)
         {
             isGameOver = true;
+            WinGame();
         }
+    }
+
+    IEnumerator CheckForEvents()
+    {
+        CheckForCompletion();
+        CheckCryoStates();
+        if (cryoCriticalState)
+        {
+            cryoCriticalIndicator.SetActive(true);
+        }
+        else
+        {
+            cryoCriticalIndicator.SetActive(false);
+        }
+        yield return new WaitForSeconds(1f);
+        if (!isGameOver)
+        {
+            StartCoroutine(CheckForEvents());
+        }
+    }
+
+    private void CheckCryoStates()
+    {
+        foreach (GameObject cryopod in cryopods)
+        {
+            if (cryopod.GetComponent<CryopodControls>().currentCharge 
+                                    < cryoCriticalAlertSensitivity)
+            {
+                cryoCriticalState = true;
+                break;
+            }
+            else
+            {
+                cryoCriticalState = false;
+            }
+        }
+    }
+
+    public void StartGameLostEvent()
+    {
+        StartCoroutine(LoseGame());
+    }
+
+    IEnumerator LoseGame()
+    {
+        yield return new WaitForSeconds(4f);
+        gameOverCanvas.SetActive(true);
+    }
+
+    public void WinGame()
+    {
+        gameWonCanvas.SetActive(true);
     }
 }

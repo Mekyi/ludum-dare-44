@@ -17,16 +17,20 @@ public class Player : MonoBehaviour
     [SerializeField] float passiveEnergyDrain = 1f;
     [SerializeField] float energyDrainInterval = 1f;
 
+    [SerializeField] GameObject gameplayManager;
+
     public bool isMovable = true;
     public bool isAlive = true;
 
     private Rigidbody2D rb;
+    private Animator anim;
     Vector2 direction = new Vector2(0, 0);
 
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        anim = gameObject.GetComponent<Animator>();
         StartCoroutine(DrainEnergy());
     }
 
@@ -44,6 +48,8 @@ public class Player : MonoBehaviour
         {
             isMovable = false;
             isAlive = false;
+            anim.SetTrigger("DeathAnimation");
+            gameplayManager.GetComponent<GameplayManager>().StartGameLostEvent();
         }
     }
 
@@ -52,7 +58,16 @@ public class Player : MonoBehaviour
         FlipSprite();
         if (isMovable)
         {
-            rb.velocity = new Vector2(direction.x * horizontalSpeed * Time.deltaTime, direction.y * verticalSpeed * Time.deltaTime);
+            rb.velocity = new Vector2(direction.x * horizontalSpeed * Time.deltaTime,
+                                        direction.y * verticalSpeed * Time.deltaTime);
+            if (rb.velocity.x != 0 || rb.velocity.y != 0)
+            {
+                anim.SetBool("isMoving", true);
+            }
+            else
+            {
+                anim.SetBool("isMoving", false);
+            }
         }
         else
         {

@@ -1,7 +1,19 @@
 fileFormatVersion: 2
-guid: ba5134fea601f92418d53c1e42404690
+guid: e71270c40cdfde841a6c736fef0bad6b
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -1933317807346620353
+    second: robot_idle_0
+  - first:
+      213: 6290174534990618522
+    second: robot_idle_1
+  - first:
+      213: -462977947315513139
+    second: robot_idle_2
+  - first:
+      213: -7491579411104674680
+    second: robot_idle_3
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -40,12 +52,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1
+  spritePixelsToUnits: 10
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -93,11 +105,95 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: robot_idle_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 0
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 608ec648e36d78040af51c03e2945e67
+      internalID: -1933317807346620353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robot_idle_1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6768838fe8c810c47b15de53280f361c
+      internalID: 6290174534990618522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robot_idle_2
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 0
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5bb8dbdc63ae9644813911666ccd832
+      internalID: -462977947315513139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robot_idle_3
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60530537a761c9d47bf95392497a387b
+      internalID: -7491579411104674680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: da7a243498acfed4fa514f4f328289aa
+    spriteID: 41e49c13e83d14b4798a1ab941cee54e
     internalID: 0
     vertices: []
     indices: 
