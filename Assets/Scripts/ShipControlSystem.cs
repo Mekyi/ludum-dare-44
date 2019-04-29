@@ -13,13 +13,17 @@ public class ShipControlSystem : MonoBehaviour
     [SerializeField] float randomEventChance = 0.05f;
     [SerializeField] float diceRollInterval = 1f;
     [SerializeField] float fixEnergyCost = 10f;
+    [SerializeField] float fixCooldown = 20f;
 
     [SerializeField] bool isControlPanel = false;
     [SerializeField] bool isLeftEngine = false;
     [SerializeField] bool isRightEngine = false;
 
     public bool isRandomEvent;
+    public float fixCooldownTimer;
+
     private BoxCollider2D triggerArea;
+    private AudioSource consoleAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +31,9 @@ public class ShipControlSystem : MonoBehaviour
         guideText.SetActive(false);
         alertIndicator.SetActive(false);
         triggerArea = gameObject.GetComponent<BoxCollider2D>();
+        consoleAudio = gameObject.GetComponent<AudioSource>();
         StartCoroutine(RollForEvent());
+        fixCooldownTimer = fixCooldown;
     }
 
     // Update is called once per frame
@@ -57,8 +63,10 @@ public class ShipControlSystem : MonoBehaviour
                         gameplayManager.GetComponent<GameplayManager>().fixRightEngine = false;
                     }
 
+                    consoleAudio.Play();
                     player.GetComponent<Player>().DecreaseEnergy(fixEnergyCost);
                     guideText.SetActive(false);
+                    fixCooldownTimer = fixCooldown;
                 }
             }
         }
@@ -85,7 +93,7 @@ public class ShipControlSystem : MonoBehaviour
     IEnumerator RollForEvent()
     {
         yield return new WaitForSeconds(diceRollInterval);
-        if (randomEventChance > UnityEngine.Random.value)
+        if (randomEventChance > UnityEngine.Random.value && fixCooldownTimer < 0f)
         {
             if (isControlPanel)
             {
@@ -105,6 +113,8 @@ public class ShipControlSystem : MonoBehaviour
 
     private void CheckForEvent()
     {
+        fixCooldownTimer -= Time.deltaTime;
+
         if (isControlPanel)
         {
             isRandomEvent = gameplayManager.GetComponent<GameplayManager>().fixCourse;

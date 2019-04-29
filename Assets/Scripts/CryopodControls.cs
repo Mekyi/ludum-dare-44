@@ -18,7 +18,9 @@ public class CryopodControls : MonoBehaviour
     private RectTransform timeBar;
     private RectTransform uiBar;
     private BoxCollider2D triggerArea;
-    private bool isAlive = true;
+    public bool isAlive = true;
+
+    AudioSource chargeAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,7 @@ public class CryopodControls : MonoBehaviour
         timeBar = maintenanceIndicator.GetComponent<RectTransform>();
         currentCharge = fullCharge;
         uiBar = uiTimer.GetComponent<RectTransform>();
+        chargeAudio = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -68,7 +71,15 @@ public class CryopodControls : MonoBehaviour
             guideTexts.SetActive(true);
             if (Input.GetButton("Interact") && player.GetComponent<Player>().isAlive)
             {
+                if (!chargeAudio.isPlaying)
+                {
+                    chargeAudio.Play();
+                }
                 ChargeStation();
+            }
+            else
+            {
+                chargeAudio.Stop();
             }
         }
         else

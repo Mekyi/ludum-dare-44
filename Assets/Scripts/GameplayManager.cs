@@ -23,10 +23,15 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] GameObject uiCanvas;
     [SerializeField] GameObject pauseCanvas;
     [SerializeField] GameObject gameOverCanvas;
-    [SerializeField] GameObject gameWonCanvas;
+    [SerializeField] GameObject gameWonCanvas0;
+    [SerializeField] GameObject gameWonCanvas1;
+    [SerializeField] GameObject gameWonCanvas2;
+    [SerializeField] GameObject gameWonCanvas3;
+    [SerializeField] GameObject tutorialCanvas;
 
 
     public float gameTime = 0;
+    AudioSource alertSound;
     
 
     // Game events
@@ -40,14 +45,18 @@ public class GameplayManager : MonoBehaviour
     public bool isGameOver = false; // Either win or lose
     public bool isPauseToggled = false;
     private bool isMapToggled = false;
+    public bool isTutorialToggled = true;
+    private int cryoAliveCount = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        Time.timeScale = 1;
+        Time.timeScale = 0;
         timeSlider.localScale = new Vector3(gameTime /gameLength, 1, 1);
         StartCoroutine(CheckForEvents());
         cryoCriticalIndicator.SetActive(false);
+        tutorialCanvas.SetActive(true);
+        alertSound = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -60,6 +69,10 @@ public class GameplayManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 TogglePauseMenu();
+            }
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                ToggleTutorialMenu();
             }
             CheckForCompletion();
         }
@@ -75,8 +88,22 @@ public class GameplayManager : MonoBehaviour
         }
         else
         {
-            pauseCanvas.SetActive(false);
             Time.timeScale = 1;
+            pauseCanvas.SetActive(false);
+        }
+    }
+
+    public void ToggleTutorialMenu()
+    {
+        if (isTutorialToggled == true)
+        {
+            tutorialCanvas.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            tutorialCanvas.SetActive(false);
         }
     }
 
@@ -157,11 +184,13 @@ public class GameplayManager : MonoBehaviour
 
     private void CheckEnergyState()
     {
-        if (isCriticalEnergy)
+        
+        if (isCriticalEnergy && !energyCriticalIndicator.activeSelf)
         {
+            alertSound.Play();
             energyCriticalIndicator.SetActive(true);
         }
-        else
+        else if (!isCriticalEnergy)
         {
             energyCriticalIndicator.SetActive(false);
         }
@@ -169,11 +198,13 @@ public class GameplayManager : MonoBehaviour
 
     private void CheckLeftEngineState()
     {
-        if (fixLeftEngine)
+        
+        if (fixLeftEngine && !leftEngineCriticalIndicator.activeSelf)
         {
+            alertSound.Play();
             leftEngineCriticalIndicator.SetActive(true);
         }
-        else
+        else if (!fixLeftEngine)
         {
             leftEngineCriticalIndicator.SetActive(false);
         }
@@ -181,11 +212,12 @@ public class GameplayManager : MonoBehaviour
 
     private void CheckRightEngineState()
     {
-        if (fixRightEngine)
+        if (fixRightEngine && !rightEngineCriticalIndicator.activeSelf)
         {
+            alertSound.Play();
             rightEngineCriticalIndicator.SetActive(true);
         }
-        else
+        else if (!fixRightEngine)
         {
             rightEngineCriticalIndicator.SetActive(false);
         }
@@ -194,11 +226,12 @@ public class GameplayManager : MonoBehaviour
 
     private void CheckCourseState()
     {
-        if (fixCourse)
+        if (fixCourse && !courseCriticalIndicator.activeSelf)
         {
+            alertSound.Play();
             courseCriticalIndicator.SetActive(true);
         }
-        else
+        else if (!fixCourse)
         {
             courseCriticalIndicator.SetActive(false);
         }
@@ -209,8 +242,9 @@ public class GameplayManager : MonoBehaviour
         // Check
         foreach (GameObject cryopod in cryopods)
         {
-            if (cryopod.GetComponent<CryopodControls>().currentCharge 
-                                    < cryoCriticalAlertSensitivity)
+            if (cryopod.GetComponent<CryopodControls>()
+                .currentCharge < cryoCriticalAlertSensitivity
+                && cryopod.GetComponent<CryopodControls>().isAlive)
             {
                 cryoCriticalState = true;
                 break;
@@ -222,11 +256,12 @@ public class GameplayManager : MonoBehaviour
         }
 
         // Handle
-        if (cryoCriticalState)
+        if (cryoCriticalState && !cryoCriticalIndicator.activeSelf)
         {
+            alertSound.Play();
             cryoCriticalIndicator.SetActive(true);
         }
-        else
+        else if (!cryoCriticalState)
         {
             cryoCriticalIndicator.SetActive(false);
         }
@@ -245,6 +280,31 @@ public class GameplayManager : MonoBehaviour
 
     public void WinGame()
     {
-        gameWonCanvas.SetActive(true);
+        foreach (GameObject cryopod in cryopods)
+        {
+            if (cryopod.GetComponent<CryopodControls>().isAlive)
+            {
+                cryoAliveCount += 1;
+            }
+        }
+
+        // Different endings
+        if (cryoAliveCount == 0)
+        {
+            // PepeHands ending
+            gameWonCanvas0.SetActive(true);
+        }
+        else if (cryoAliveCount == 1)
+        {
+            gameWonCanvas1.SetActive(true);
+        }
+        else if (cryoAliveCount == 2)
+        {
+            gameWonCanvas2.SetActive(true);
+        }
+        else
+        {
+            gameWonCanvas3.SetActive(true);
+        }
     }
 }
