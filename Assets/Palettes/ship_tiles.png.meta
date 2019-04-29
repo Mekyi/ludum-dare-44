@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fbd61c8ec6a2fad4aba3e6dd8d60b286
+guid: b9c26bac8054f684eb220b3ccb4db71b
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -11,6 +11,36 @@ TextureImporter:
   - first:
       213: 4847439001786852917
     second: ship_tiles_2
+  - first:
+      213: 6870642206069266628
+    second: ship_tiles_3
+  - first:
+      213: 8101183163319884300
+    second: ship_tiles_4
+  - first:
+      213: -2009185355790867859
+    second: ship_tiles_5
+  - first:
+      213: -1835558745622859879
+    second: ship_tiles_6
+  - first:
+      213: 754584676614354336
+    second: ship_tiles_7
+  - first:
+      213: 8428788722313890103
+    second: ship_tiles_8
+  - first:
+      213: -6074753923610245941
+    second: ship_tiles_9
+  - first:
+      213: 4058462565886063192
+    second: ship_tiles_10
+  - first:
+      213: -4883542007620787227
+    second: ship_tiles_11
+  - first:
+      213: -1090023500095783685
+    second: ship_tiles_12
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -118,7 +148,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72031bf4bdf539a4c935870de86b07b1
+      spriteID: bec91dea2b89e09419bbd84c170ab99b
       internalID: -1312159558202574998
       vertices: []
       indices: 
@@ -139,7 +169,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 03b7095ec9814e644a7bb3810cfc4114
+      spriteID: 18d1561759618bf4e822f175eb362a81
       internalID: -262419834515714776
       vertices: []
       indices: 
@@ -160,8 +190,218 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 638bae73b870a2b489c175b179d22445
+      spriteID: 23e9e0ec28b1e644dbfddc89f427a25a
       internalID: 4847439001786852917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ship_tiles_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66d749186bcfbdb449edf7004389b56a
+      internalID: 6870642206069266628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ship_tiles_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c264248bf24355245b67292cefd3be37
+      internalID: 8101183163319884300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ship_tiles_5
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af252971cf2056a4faeab0851b81b659
+      internalID: -2009185355790867859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ship_tiles_6
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7190c7f1676e93d49bba0824ccd673ba
+      internalID: -1835558745622859879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ship_tiles_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2bf609ede88a8c42a94b1e379e872ad
+      internalID: 754584676614354336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ship_tiles_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5054bb8a8d5861645a501990c7054085
+      internalID: 8428788722313890103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ship_tiles_9
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a2730bde962bd34eae1a1f7a9064e9e
+      internalID: -6074753923610245941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ship_tiles_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 377256d4f5c6f9640b61b42bf84350ca
+      internalID: 4058462565886063192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ship_tiles_11
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 880530c42ccac194d82f1462132895f5
+      internalID: -4883542007620787227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ship_tiles_12
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 032a019556cb5d940a35b8e25ae0d5cd
+      internalID: -1090023500095783685
       vertices: []
       indices: 
       edges: []
@@ -169,7 +409,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5af5313d0975474418b37152964a8fc8
+    spriteID: 3228c7eb15668d24cb118cfb41c9cd46
     internalID: 0
     vertices: []
     indices: 
