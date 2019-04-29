@@ -598,7 +598,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0f89cbcb2e20cf94381375bd4624b88b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -625,8 +625,10 @@ MonoBehaviour:
   gameplayManager: {fileID: 0}
   player: {fileID: 0}
   guideText: {fileID: 7204303464183746661}
+  alertIndicator: {fileID: 0}
   randomEventChance: 0.025
   diceRollInterval: 1
+  fixEnergyCost: 10
   isControlPanel: 0
   isLeftEngine: 0
   isRightEngine: 0

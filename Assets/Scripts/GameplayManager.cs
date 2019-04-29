@@ -109,9 +109,13 @@ public class GameplayManager : MonoBehaviour
 
     private void Timer()
     {
-        if (!fixCourse)
+        if (!fixCourse && !fixLeftEngine && !fixRightEngine)
         {
             gameTime += Time.deltaTime;
+        }
+        else if (fixCourse)
+        {
+            gameTime -= Time.deltaTime;
         }
         else if (fixLeftEngine && fixRightEngine)
         {
@@ -120,10 +124,6 @@ public class GameplayManager : MonoBehaviour
         else if (fixLeftEngine || fixRightEngine)
         {
             gameTime += Time.deltaTime * 0.5f;
-        }
-        else
-        {
-            gameTime -= Time.deltaTime;
         }
         gameTime = Mathf.Clamp(gameTime, 0f, gameLength);
         timeSlider.localScale = new Vector3 (gameTime / gameLength, 1, 1);
