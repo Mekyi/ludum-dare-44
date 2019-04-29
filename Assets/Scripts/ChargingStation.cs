@@ -19,6 +19,7 @@ public class ChargingStation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        energy = maxEnergy;
         triggerArea = gameObject.GetComponent<CapsuleCollider2D>();
         chargeText = valueComponent.GetComponent<TextMeshPro>();
     }

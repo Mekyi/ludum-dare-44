@@ -33,7 +33,7 @@ public class CryopodControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckForAlerts();
+        CheckForCryoAlerts();
         if (currentCharge >= 0)
         {
             currentCharge -= Time.deltaTime * energyDrainSpeed;
@@ -49,7 +49,7 @@ public class CryopodControls : MonoBehaviour
         CheckPlayerContact();
     }
 
-    private void CheckForAlerts()
+    private void CheckForCryoAlerts()
     {
         if (currentCharge <= 8f)
         {

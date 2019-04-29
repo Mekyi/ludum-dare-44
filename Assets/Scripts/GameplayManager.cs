@@ -47,6 +47,7 @@ public class GameplayManager : MonoBehaviour
         Time.timeScale = 1;
         timeSlider.localScale = new Vector3(gameTime /gameLength, 1, 1);
         StartCoroutine(CheckForEvents());
+        cryoCriticalIndicator.SetActive(false);
     }
 
     // Update is called once per frame
@@ -111,6 +112,14 @@ public class GameplayManager : MonoBehaviour
         if (!fixCourse)
         {
             gameTime += Time.deltaTime;
+        }
+        else if (fixLeftEngine && fixRightEngine)
+        {
+            // Do nothing
+        }
+        else if (fixLeftEngine || fixRightEngine)
+        {
+            gameTime += Time.deltaTime * 0.5f;
         }
         else
         {

@@ -9,8 +9,10 @@ public class ShipControlSystem : MonoBehaviour
     [SerializeField] GameObject gameplayManager;
     [SerializeField] GameObject player;
     [SerializeField] GameObject guideText;
+    [SerializeField] GameObject alertIndicator;
     [SerializeField] float randomEventChance = 0.05f;
     [SerializeField] float diceRollInterval = 1f;
+    [SerializeField] float fixEnergyCost = 10f;
 
     [SerializeField] bool isControlPanel = false;
     [SerializeField] bool isLeftEngine = false;
@@ -23,6 +25,7 @@ public class ShipControlSystem : MonoBehaviour
     void Start()
     {
         guideText.SetActive(false);
+        alertIndicator.SetActive(false);
         triggerArea = gameObject.GetComponent<BoxCollider2D>();
         StartCoroutine(RollForEvent());
     }
@@ -30,11 +33,12 @@ public class ShipControlSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckForEvent();
+        HandleRandomEvents();
 
         // Player contact
         if (triggerArea.IsTouchingLayers(LayerMask.GetMask("Player")))
         {
-            CheckForEvent();
             if (isRandomEvent)
             {
                 guideText.SetActive(true);
@@ -53,6 +57,7 @@ public class ShipControlSystem : MonoBehaviour
                         gameplayManager.GetComponent<GameplayManager>().fixRightEngine = false;
                     }
 
+                    player.GetComponent<Player>().DecreaseEnergy(fixEnergyCost);
                     guideText.SetActive(false);
                 }
             }
@@ -62,12 +67,19 @@ public class ShipControlSystem : MonoBehaviour
             guideText.SetActive(false);
         }
 
-        HandleRandomEvents();
 
     }
 
     private void HandleRandomEvents()
     {
+        if (isRandomEvent)
+        {
+            alertIndicator.SetActive(true);
+        }
+        else
+        {
+            alertIndicator.SetActive(false);
+        }
     }
 
     IEnumerator RollForEvent()
