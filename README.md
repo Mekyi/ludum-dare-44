@@ -1,6 +1,6 @@
-# ld44
-Lost Adventurer - Source code
+# Ludum Dare 44 - Source code
+![image](https://github.com/Mekyi/ludum-dare-44/assets/651682/82ffea12-44fd-4ccc-bab0-fc15e6b50137)
 
-Submission to the Ludum Dare #44 (theme: Your Life is Currency)
-
-https://mekyi.itch.io/safe-travels
+- Jam theme: "Your Life is Currency"
+- Game title: Safe Travels
+- Game page: [Safe Travels - itch.io](https://mekyi.itch.io/safe-travels)
